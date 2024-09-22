@@ -22,7 +22,7 @@ resource "aws_apigatewayv2_stage" "stage_apig" {
 
 resource "aws_apigatewayv2_route" "paciente_route" {
   api_id    = aws_apigatewayv2_api.apigtw_health.id
-  route_key = "ANY /{proxy+}"
+  route_key = "ANY /paciente/{proxy+}"
   target = "integrations/${aws_apigatewayv2_integration.paciente_albintegration.id}"
 
   authorization_type = "JWT"
@@ -51,7 +51,7 @@ resource "aws_apigatewayv2_vpc_link" "medico_vpclink" {
 
 resource "aws_apigatewayv2_route" "medico_route" {
   api_id    = aws_apigatewayv2_api.apigtw_health.id
-  route_key = "ANY /doctor"
+  route_key = "ANY /doctor/{proxy+}"
   target = "integrations/${aws_apigatewayv2_integration.ec2_medico_integration.id}"
 
   authorization_type = "JWT"
