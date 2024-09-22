@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "restaurante-ecs-cluster"
+  name = "health-ecs-cluster"
 
   configuration {
     execute_command_configuration {

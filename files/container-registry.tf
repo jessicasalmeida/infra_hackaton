@@ -1,13 +1,13 @@
-resource "aws_ecr_repository" "repository_terraform" {
-  name = "restaurante"
+resource "aws_ecr_repository" "repository_schedule" {
+  name = "schedule"
 }
 
-resource "aws_ecr_repository" "repository_admin" {
-  name = "admin"
+resource "aws_ecr_repository" "repository_medico" {
+  name = "medico"
 }
 
-resource "aws_ecr_repository" "repository_payment" {
-  name = "payment"
+resource "aws_ecr_repository" "repository_paciente" {
+  name = "paciente"
 }
 
 resource "aws_ecr_repository" "repository_rabbit" {

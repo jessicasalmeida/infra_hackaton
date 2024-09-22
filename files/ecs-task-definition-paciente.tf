@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "ecs_restaurante_task_definition" {
-  family                   = "restaurante-ecs-task"
+resource "aws_ecs_task_definition" "ecs_paciente_task_definition" {
+  family                   = "paciente-ecs-task"
   network_mode             = "awsvpc"
   execution_role_arn       = var.labRole
   requires_compatibilities = ["FARGATE"]
@@ -12,51 +12,43 @@ resource "aws_ecs_task_definition" "ecs_restaurante_task_definition" {
   }
   container_definitions = jsonencode([
     {
-      name         = "restaurante"
-      image        = aws_ecr_repository.repository_terraform.repository_url
+      name         = "paciente"
+      image        = aws_ecr_repository.repository_paciente.repository_url
       cpu          = 2048
       memory       = 4000
       essential    = true
       portMappings = [
         {
-          containerPort = 8000
-          hostPort      = 8000
+          containerPort = 3000
+          hostPort      = 3000
           protocol      = "tcp"
         }
       ]
       logConfiguration : {
         logDriver : "awslogs"
         options : {
-          "awslogs-group"         = "/ecs/restaurante-task"
+          "awslogs-group"         = "/ecs/paciente-task"
           "awslogs-region"        = var.region
           "awslogs-create-group" : "true",
-          "awslogs-stream-prefix" = "restaurante"
+          "awslogs-stream-prefix" = "paciente-service"
         }
       }
       environment = [
         {
           name  = "DB_CONN_STRING"
-          value = aws_db_instance.cart_db.address
+          value = var.mongodb
         },
         {
           name  = "DB_NAME"
-          value = "postgres"
+          value = "health"
         },
         {
-          name  = "DB_USER"
-          value = "postgres"
-        },
-        {
-          name  = "DB_PASSWORD"
-          value = "fiapfase4!"
-        },
-        {
-          name  = "ORDER_SERVER"
-          value = "http://${aws_lb.admin-lb.dns_name}"
+          name  = "PACIENTE_COLLECTION_NAME"
+          value = "paciente"
         },
         {
           name  = "URL"
-          value = aws_apigatewayv2_api.main.api_endpoint
+          value = aws_apigatewayv2_api.apigtw_health.api_endpoint
         },
         {
           name = "MQ_CONN_STRING"

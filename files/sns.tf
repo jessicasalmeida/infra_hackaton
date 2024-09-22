@@ -1,5 +1,9 @@
 resource "aws_sns_topic" "send_schedule_notification" {
   name = "send_schedule_notification"
+}
+
+resource "aws_sns_topic_policy" "policy" {
+  arn = aws_sns_topic.send_schedule_notification.arn
   policy =  jsonencode({
     Version = "2008-10-17"
     Id      = "__default_policy_ID"

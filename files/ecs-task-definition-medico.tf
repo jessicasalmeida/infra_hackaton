@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "ecs_payment_task_definition" {
-  family                   = "payment-restaurante-ecs-task"
+resource "aws_ecs_task_definition" "ecs_medico_task_definition" {
+  family                   = "medico-ecs-task"
   network_mode             = "awsvpc"
   execution_role_arn       = var.labRole
   requires_compatibilities = ["FARGATE"]
@@ -12,25 +12,25 @@ resource "aws_ecs_task_definition" "ecs_payment_task_definition" {
   }
   container_definitions = jsonencode([
     {
-      name         = "payment"
-      image        = aws_ecr_repository.repository_payment.repository_url
-      cpu          = 2048
-      memory       = 4000
+      name         = "medico"
+      image        = aws_ecr_repository.repository_medico.repository_url
+      cpu          = 1024
+      memory       = 2048
       essential    = true
       portMappings = [
         {
-          containerPort = 3000
-          hostPort      = 3000
+          containerPort = 5000
+          hostPort      = 5000
           protocol      = "tcp"
         }
       ]
       logConfiguration : {
         logDriver : "awslogs"
         options : {
-          "awslogs-group"         = "/ecs/payment-task"
+          "awslogs-group"         = "/ecs/medico-task"
           "awslogs-region"        = var.region
           "awslogs-create-group" : "true",
-          "awslogs-stream-prefix" = "payment-service"
+          "awslogs-stream-prefix" = "medico-service"
         }
       }
       environment = [
@@ -40,15 +40,15 @@ resource "aws_ecs_task_definition" "ecs_payment_task_definition" {
         },
         {
           name  = "DB_NAME"
-          value = "payment"
+          value = "health"
         },
         {
-          name  = "PAYMENT_COLLECTION_NAME"
-          value = "payment"
+          name  = "DOCTOR_COLLECTION_NAME"
+          value = "doctor"
         },
         {
           name  = "URL"
-          value = aws_apigatewayv2_api.main.api_endpoint
+          value = aws_apigatewayv2_api.apigtw_health.api_endpoint
         },
         {
           name = "MQ_CONN_STRING"

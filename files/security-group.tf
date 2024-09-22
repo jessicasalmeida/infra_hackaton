@@ -1,8 +1,8 @@
 # ALB Security Group (Traffic Internet -> ALB)
-resource "aws_security_group" "load-balancer-restaurante-sg" {
+resource "aws_security_group" "load-balancer-schedule-sg" {
   name        = "load_balancer_security_group"
   description = "Controls access to the ALB"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port   = 80
@@ -27,10 +27,10 @@ resource "aws_security_group" "load-balancer-restaurante-sg" {
 }
 
 # ALB Security Group (Traffic Internet -> ALB)
-resource "aws_security_group" "load-balancer-admin-sg" {
-  name        = "load_balancer_admin_security_group"
+resource "aws_security_group" "load-balancer-medico-sg" {
+  name        = "load_balancer_medico_security_group"
   description = "Controls access to the ALB"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port   = 80
@@ -54,10 +54,10 @@ resource "aws_security_group" "load-balancer-admin-sg" {
   }
 }
 
-resource "aws_security_group" "load-balancer-payment-sg" {
-  name        = "load_balancer_payment_security_group"
+resource "aws_security_group" "load-balancer-paciente-sg" {
+  name        = "load_balancer_paciente_security_group"
   description = "Controls access to the ALB"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port   = 80
@@ -83,7 +83,7 @@ resource "aws_security_group" "load-balancer-payment-sg" {
 resource "aws_security_group" "load-balancer-rabbit-sg" {
   name        = "load_balancer_rabbit_security_group"
   description = "Controls access to the ALB"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port   = 80
@@ -109,16 +109,16 @@ resource "aws_security_group" "load-balancer-rabbit-sg" {
 
 
 # Instance Security group (traffic ALB -> EC2, ssh -> EC2)
-resource "aws_security_group" "restaurante_sg" {
+resource "aws_security_group" "schedule_sg" {
   name        = "eks_security_group"
   description = "Allows inbound access from the ALB only"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_security_group.load-balancer-restaurante-sg.id]
+    security_groups = [aws_security_group.load-balancer-schedule-sg.id]
   }
 
   ingress {
@@ -149,14 +149,14 @@ resource "aws_security_group" "restaurante_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "restaurante-sg"
+    Name = "schedule-sg"
   }
 }
 
-resource "aws_security_group" "admin_sg" {
-  name        = "eks_admin_security_group"
+resource "aws_security_group" "medico_sg" {
+  name        = "eks_medico_security_group"
   description = "Allows inbound access from the ALB only"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port       = 0
@@ -168,7 +168,7 @@ resource "aws_security_group" "admin_sg" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_security_group.load-balancer-admin-sg.id]
+    security_groups = [aws_security_group.load-balancer-medico-sg.id]
   }
 
   ingress {
@@ -185,14 +185,14 @@ resource "aws_security_group" "admin_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "restaurante-sg"
+    Name = "medico-sg"
   }
 }
 
-resource "aws_security_group" "payment_sg" {
-  name        = "eks_payment_security_group"
+resource "aws_security_group" "paciente_sg" {
+  name        = "eks_paciente_security_group"
   description = "Allows inbound access from the ALB only"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port       = 0
@@ -204,7 +204,7 @@ resource "aws_security_group" "payment_sg" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_security_group.load-balancer-payment-sg.id]
+    security_groups = [aws_security_group.load-balancer-paciente-sg.id]
   }
 
   ingress {
@@ -221,14 +221,14 @@ resource "aws_security_group" "payment_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "payment-sg"
+    Name = "paciente-sg"
   }
 }
 
 resource "aws_security_group" "rabbitmq_sg" {
   name        = "eks_rabbitmq_security_group"
   description = "Allows inbound access from the ALB only"
-  vpc_id      = aws_vpc.restaurante-vpc.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port   = 5672

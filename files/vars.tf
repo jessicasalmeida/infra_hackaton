@@ -1,17 +1,17 @@
 variable "access_key" {
-  default = "AKIAZMJCF4BFT3EYUD5D"
+  default = "ASIAW6LTOJXTXMVPPQYX"
 }
 
 variable "secret_key" {
-  default = "CoqF1jVcWtWt2otSUatb7/8tRD3klRHllHRL5GF8"
+  default = "FJtaZAkTm2JzP6wMPUVyVTNMBkTnW5hecgCyoPyN"
 }
 
 variable "token" {
-  default = "IQoJb3JpZ2luX2VjEBAaCXVzLXdlc3QtMiJGMEQCIEWvSdM5jiHMKi21Hn8MFnN5qSTL8iKIpz9wARKoRDO+AiAsT85Ax67QcH/izi4yF1pVr3ypTRltoHWkZn4FWgWfVyq1Agg5EAEaDDI0ODAyODA0OTQwMyIMWv14JM6Yf+5f30d4KpICs1lRFbg1pA//zzE4s+r108YranL1D/jKyzTcwbIP39hkuEjRyoihvO9kP99G4Tj2tXQIr+KxYqz+LPjUu65dU9pj7UXw2fS0MKHccIoWp5IBM7hPzS/PZdEVgq9SnIwcHzWkKkh2SaoIry7hSpN9w9/E7iaV4luqtJb7IPaUgk9O9XEoX3ap/M+vVPMPM3IvDz2/dwMs/YJDf7xYbpJ0ScIObtyLP7xUZOI05t6/AHpsBQBPHm+rBfSeDzBAZeGTpfoqRxXWM2gz5uSxQ/qMlQAGjMwpGohkJlArl4oSPrJJIo2ttUnF6VnecIuzfKTp7bs0G58hKhonBzFKaj2qe2ka/oGZlA7/XF+cKPaLeL3I/zDhxPO2BjqeAewyQVFIPJwzfbedIT+dQ78RVmixhIo+aEGtaO4RnOvImHdALGEyoDBBjZ+Me/4nK1ggfxuODlpnxuIZJnFzOLJ1iE0MeZcACDhdfQok7KwmfKyvhd2fCScyBtjp3QEmblG+XIHbin0F8EyBmQF0pxlFoC9hgNI4I1rdLTPRHZgmWDy8ylrq4aIxKohh88vEXC6H8mNGMN64abmD4+qh"
+  default = "IQoJb3JpZ2luX2VjEHAaCXVzLXdlc3QtMiJHMEUCIQCZBnRpOggrQoqnQ1bMe+NKic27Oyz4tEw5MVw9P6L8MwIgEwXT08TWM8YKC+qnl/GPzze+vKoZxIOtZuNekMWFJIcqvgIIqf//////////ARABGgw0Nzc1MjAzNTA2OTUiDDlfYvaWJFd9rRVlZiqSAlHpwBi5DfH9RE/auvksB+0JiJRgABgZcUSjJpk3GcdnPGhnJ+9tfmsTZwWZy1vmy53IwLDARpNiVZg3YimBBa7OSRhFDDrjohqB3O8gYZgX48aimFgzOyIg/G7QpebfqmGTfzOPZAltrW4u48Hq2/h2IuSc5A0irYgffWkx+FPmPCF/LC+vGdJYcWWwKaNZbSsDOhZdD/iujqOdDs1X8wQOBbj6en6FUt8xVnqS9J7TV6Xzl9p3C91JcyfPuP9WcwdjJalXHeiX03/1spoAcAYRCa6MJCwNhOFD8k0lhpiUwHG3jBCRpZVDGcSJWDy5A3feJhvo5y17tPwPvHmo97Tjiw1j1zrJ2gLwiP2q0OFvmGIwloHBtwY6nQHUa1aWKeFWkwWwLkH8uLkBH/nSCBr4PfyerzO3X/6RKknCUxYUPUZvIcTW6R4NIMWylUZXx8bcohoOQQUMmDW/0nOx319J9KHNUlQVItGLAPa64mgI2Ub+Nwc9fqjq+3eyVgDAbGPPMNbKZ8wL2uePs2sURshr6UPK6PwNyYoImGIrkiIyMRRfwFAy50NGSiT/5U1wYLI6RFSTTnkT"
 }
 
 variable "labRole" {
-  default = "arn:aws:iam::477520350695:role/ecs_task_function"
+  default = "arn:aws:iam::477520350695:role/LabRole"
 }
 
 variable "principalArn" {
@@ -93,9 +93,9 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "eks_instance_name" {
-  description = "Name of the EKS instance"
-  default     = "restaurante-eks"
+variable "instance_name" {
+  description = "Name of the instance"
+  default     = "health"
 }
 
 

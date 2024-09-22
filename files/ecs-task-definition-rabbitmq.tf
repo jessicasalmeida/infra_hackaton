@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "ecs_rabbitmq_task_definition" {
-  family                   = "rabbitmq-restaurante-ecs-task"
+  family                   = "rabbitmq-ecs-task"
   network_mode             = "awsvpc"
   execution_role_arn       = var.labRole
   requires_compatibilities = ["FARGATE"]

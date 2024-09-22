@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "autenticacao_medico" {
   filename      = "../lambda.zip"
-  function_name = "login"
+  function_name = "loginmedico"
   role          = var.labRole
   handler       = "index.handler"
   runtime       = "nodejs18.x"
@@ -24,5 +24,5 @@ resource "aws_lambda_permission" "apigw_medico" {
   function_name = aws_lambda_function.autenticacao_medico.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.main.execution_arn}/*"
+  source_arn = "${aws_apigatewayv2_api.apigtw_health.execution_arn}/*"
 }
