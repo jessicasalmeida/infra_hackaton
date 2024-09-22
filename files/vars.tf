@@ -1,25 +1,29 @@
 variable "access_key" {
-  default = "abc"
+  default = "AKIAZMJCF4BFT3EYUD5D"
 }
 
 variable "secret_key" {
-  default = "abc"
+  default = "CoqF1jVcWtWt2otSUatb7/8tRD3klRHllHRL5GF8"
 }
 
 variable "token" {
-  default = "abc"
+  default = "IQoJb3JpZ2luX2VjEBAaCXVzLXdlc3QtMiJGMEQCIEWvSdM5jiHMKi21Hn8MFnN5qSTL8iKIpz9wARKoRDO+AiAsT85Ax67QcH/izi4yF1pVr3ypTRltoHWkZn4FWgWfVyq1Agg5EAEaDDI0ODAyODA0OTQwMyIMWv14JM6Yf+5f30d4KpICs1lRFbg1pA//zzE4s+r108YranL1D/jKyzTcwbIP39hkuEjRyoihvO9kP99G4Tj2tXQIr+KxYqz+LPjUu65dU9pj7UXw2fS0MKHccIoWp5IBM7hPzS/PZdEVgq9SnIwcHzWkKkh2SaoIry7hSpN9w9/E7iaV4luqtJb7IPaUgk9O9XEoX3ap/M+vVPMPM3IvDz2/dwMs/YJDf7xYbpJ0ScIObtyLP7xUZOI05t6/AHpsBQBPHm+rBfSeDzBAZeGTpfoqRxXWM2gz5uSxQ/qMlQAGjMwpGohkJlArl4oSPrJJIo2ttUnF6VnecIuzfKTp7bs0G58hKhonBzFKaj2qe2ka/oGZlA7/XF+cKPaLeL3I/zDhxPO2BjqeAewyQVFIPJwzfbedIT+dQ78RVmixhIo+aEGtaO4RnOvImHdALGEyoDBBjZ+Me/4nK1ggfxuODlpnxuIZJnFzOLJ1iE0MeZcACDhdfQok7KwmfKyvhd2fCScyBtjp3QEmblG+XIHbin0F8EyBmQF0pxlFoC9hgNI4I1rdLTPRHZgmWDy8ylrq4aIxKohh88vEXC6H8mNGMN64abmD4+qh"
 }
 
 variable "labRole" {
-  default = "arn:aws:iam::XX:role/LabRole"
+  default = "arn:aws:iam::477520350695:role/ecs_task_function"
 }
 
 variable "principalArn" {
-  default = "arn:aws:iam::XX:role/voclabs"
+  default = "arn:aws:iam::477520350695:role/voclabs"
+}
+
+variable "accountId" {
+  default = "477520350695"
 }
 
 variable "ecsTaskDefinition" {
-  default = "arn:aws:iam::XX:role/ecsTaskExecutionRole"
+  default = "arn:aws:iam::477520350695:role/ecsTaskExecutionRole"
 }
 
 variable "mongodb" {

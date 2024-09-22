@@ -25,7 +25,7 @@ resource "aws_apigatewayv2_route" "eksRoute" {
   target = "integrations/${aws_apigatewayv2_integration.albintegration.id}"
 
   authorization_type = "JWT"
-  authorizer_id = aws_apigatewayv2_authorizer.authorizer.id
+  authorizer_id = aws_apigatewayv2_authorizer.authorizer_paciente.id
 }
 
 resource "aws_apigatewayv2_integration" "albintegration" {
@@ -54,7 +54,7 @@ resource "aws_apigatewayv2_route" "order_route" {
   target = "integrations/${aws_apigatewayv2_integration.ec2_order_integration.id}"
 
   authorization_type = "JWT"
-  authorizer_id = aws_apigatewayv2_authorizer.authorizer.id
+  authorizer_id = aws_apigatewayv2_authorizer.authorizer_medico.id
 }
 resource "aws_apigatewayv2_integration" "ec2_order_integration" {
   api_id           = aws_apigatewayv2_api.main.id
@@ -66,29 +66,55 @@ resource "aws_apigatewayv2_integration" "ec2_order_integration" {
 
 }
 
-resource "aws_apigatewayv2_authorizer" "authorizer" {
+resource "aws_apigatewayv2_authorizer" "authorizer_paciente" {
   api_id                            = aws_apigatewayv2_api.main.id
   authorizer_type                   = "JWT"
   identity_sources                  = ["$request.header.Authorization"]
-  name                              = "restaurante-authorizer"
+  name                              = "paciente-authorizer"
   jwt_configuration {
-    audience = [aws_cognito_user_pool_client.user_pool_client.id]
-    issuer = "https://cognito-idp.us-east-1.amazonaws.com/${aws_cognito_user_pool.user_pool.id}"
+    audience = [aws_cognito_user_pool_client.paciente_pool_cliente.id]
+    issuer = "https://cognito-idp.us-east-1.amazonaws.com/${aws_cognito_user_pool.paciente_pool.id}"
   }
-  depends_on = [aws_cognito_user_pool_client.user_pool_client, aws_cognito_user_pool.user_pool]
+  depends_on = [aws_cognito_user_pool_client.paciente_pool_cliente, aws_cognito_user_pool.paciente_pool]
+}
+
+resource "aws_apigatewayv2_authorizer" "authorizer_medico" {
+  api_id                            = aws_apigatewayv2_api.main.id
+  authorizer_type                   = "JWT"
+  identity_sources                  = ["$request.header.Authorization"]
+  name                              = "medico-authorizer"
+  jwt_configuration {
+    audience = [aws_cognito_user_pool_client.medico_pool_cliente.id]
+    issuer = "https://cognito-idp.us-east-1.amazonaws.com/${aws_cognito_user_pool.medico_pool.id}"
+  }
+  depends_on = [aws_cognito_user_pool_client.medico_pool_cliente, aws_cognito_user_pool.medico_pool]
 }
 
 
-resource "aws_apigatewayv2_integration" "login_lambda_integration" {
+resource "aws_apigatewayv2_integration" "login_lambda_integration_paciente" {
   api_id           = aws_apigatewayv2_api.main.id
   integration_type = "AWS_PROXY"
   connection_type    = "INTERNET"
   integration_method = "POST"
-  integration_uri  = aws_lambda_function.autenticacao-lb.arn
+  integration_uri  = aws_lambda_function.autenticacao-paciente.arn
 }
 
-resource "aws_apigatewayv2_route" "login_route" {
+resource "aws_apigatewayv2_integration" "login_lambda_integration_medico" {
+  api_id           = aws_apigatewayv2_api.main.id
+  integration_type = "AWS_PROXY"
+  connection_type    = "INTERNET"
+  integration_method = "POST"
+  integration_uri  = aws_lambda_function.autenticacao_medico.arn
+}
+
+resource "aws_apigatewayv2_route" "login_route_paciente" {
   api_id    = aws_apigatewayv2_api.main.id
   route_key = "POST /login"
-  target = "integrations/${aws_apigatewayv2_integration.login_lambda_integration.id}"
+  target = "integrations/${aws_apigatewayv2_integration.login_lambda_integration_paciente.id}"
+}
+
+resource "aws_apigatewayv2_route" "login_route_medico" {
+  api_id    = aws_apigatewayv2_api.main.id
+  route_key = "POST /login"
+  target = "integrations/${aws_apigatewayv2_integration.login_lambda_integration_medico.id}"
 }
