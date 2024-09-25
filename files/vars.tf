@@ -1,25 +1,29 @@
 variable "access_key" {
-  default = "abc"
+  default = "ASIAW6LTOJXT7B2UBX5Z"
 }
 
 variable "secret_key" {
-  default = "abc"
+  default = "WOtF1PZlaK91Bp/nb0UL2ULAGY0XQe70OslgBMNL"
 }
 
 variable "token" {
-  default = "abc"
+  default = "IQoJb3JpZ2luX2VjEKj//////////wEaCXVzLXdlc3QtMiJGMEQCIAu5uQKvd2Aygq5ElPakBB9ncvsLZoHz2q2fo5KAtAkoAiBcvMDt41N7M+O3637Ha8ourr7xJHVXJm5b0+ph9Y0VfSq+Agjg//////////8BEAEaDDQ3NzUyMDM1MDY5NSIMGwp/GN6N5TuTt4KsKpIC3i9Ff8tJpeSKLGGLVaR14fFLLMY/1i3kuzoaMEkYSJClzpolzFZMLO0g2H2fsWfEMq9x2Wruz2KchYbECT90H8SNglSy51wC3PYFNF1Su6HhAjvYk3l5cRC72YDXRyiscA0zcBZa74ST0hXXhZy6niCUNyAoDSuIPMC+n4yOhOZAGQQX/Leu7ZIhSUm0MSHPEplrkqOa5zMPUk+puCXpDECA8OMMY/6xNWID/xXo6oJoGxQF0SXfbrqxIQQFr26vf580IqqI4INMVxJE/ktopkhoJJ38itlRXJWrGaEaZzt7OvHJPjr8zwzAVW9E122Oih8st08gyku8jOpfAaCzq8CmlyYOVQ2Rr2G6GCrxt/pqVzD+ks23BjqeAYJkXw0G7Uzk/LzCQIvVLT92vj4W8PzQac9dhI/RYLqwqe7YMj5PqK8rLQ2QcMvfHkEr7HrUhMya+jOtH/bIWauq6UzD57DXfsuEjEVszAIIRXtIHu6D4xORlxlXyF6usZgV1NMSih787HE7aeVN3D814NbMxz6jmOSVB5hJzFj5gIhAxxTkxPacn3VjFCYNLV68hKAO14MmPUWGjsIE"
 }
 
 variable "labRole" {
-  default = "arn:aws:iam::XX:role/LabRole"
+  default = "arn:aws:iam::477520350695:role/LabRole"
 }
 
 variable "principalArn" {
-  default = "arn:aws:iam::XX:role/voclabs"
+  default = "arn:aws:iam::477520350695:role/voclabs"
+}
+
+variable "accountId" {
+  default = "477520350695"
 }
 
 variable "ecsTaskDefinition" {
-  default = "arn:aws:iam::XX:role/ecsTaskExecutionRole"
+  default = "arn:aws:iam::477520350695:role/ecsTaskExecutionRole"
 }
 
 variable "mongodb" {
@@ -89,9 +93,9 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "eks_instance_name" {
-  description = "Name of the EKS instance"
-  default     = "restaurante-eks"
+variable "instance_name" {
+  description = "Name of the instance"
+  default     = "health"
 }
 
 

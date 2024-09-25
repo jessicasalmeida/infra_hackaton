@@ -1,6 +1,6 @@
-resource "aws_lambda_function" "autenticacao-lb" {
+resource "aws_lambda_function" "autenticacao-paciente" {
   filename      = "../lambda.zip"
-  function_name = "login"
+  function_name = "loginpaciente"
   role          = var.labRole
   handler       = "index.handler"
   runtime       = "nodejs18.x"
@@ -8,8 +8,8 @@ resource "aws_lambda_function" "autenticacao-lb" {
   # Define as variáveis de ambiente
   environment {
     variables = {
-      USER_POOL_ID   = aws_cognito_user_pool.user_pool.id
-      CLIENT_ID      = aws_cognito_user_pool_client.user_pool_client.id
+      USER_POOL_ID   = aws_cognito_user_pool.paciente_pool.id
+      CLIENT_ID      = aws_cognito_user_pool_client.paciente_pool_cliente.id
       REGION = var.region
       ACCESS_KEY_ID = var.access_key
       SECRET_ACCESS_KEY = var.secret_key
@@ -18,15 +18,11 @@ resource "aws_lambda_function" "autenticacao-lb" {
   }
 }
 
-resource "aws_lambda_permission" "apigw" {
+resource "aws_lambda_permission" "apigw_paciente" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.autenticacao-lb.function_name
+  function_name = aws_lambda_function.autenticacao-paciente.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.main.execution_arn}/*"
-}
-
-output "lambda_function_arn" {
-  value = aws_lambda_function.autenticacao-lb.arn
+  source_arn = "${aws_apigatewayv2_api.apigtw_health.execution_arn}/*"
 }

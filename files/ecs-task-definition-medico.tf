@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "ecs_admin_task_definition" {
-  family                   = "admin-restaurante-ecs-task"
+resource "aws_ecs_task_definition" "ecs_medico_task_definition" {
+  family                   = "medico-ecs-task"
   network_mode             = "awsvpc"
   execution_role_arn       = var.labRole
   requires_compatibilities = ["FARGATE"]
@@ -12,8 +12,8 @@ resource "aws_ecs_task_definition" "ecs_admin_task_definition" {
   }
   container_definitions = jsonencode([
     {
-      name         = "admin"
-      image        = aws_ecr_repository.repository_admin.repository_url
+      name         = "medico"
+      image        = aws_ecr_repository.repository_medico.repository_url
       cpu          = 1024
       memory       = 2048
       essential    = true
@@ -27,10 +27,10 @@ resource "aws_ecs_task_definition" "ecs_admin_task_definition" {
       logConfiguration : {
         logDriver : "awslogs"
         options : {
-          "awslogs-group"         = "/ecs/order-task"
+          "awslogs-group"         = "/ecs/medico-task"
           "awslogs-region"        = var.region
           "awslogs-create-group" : "true",
-          "awslogs-stream-prefix" = "order-service"
+          "awslogs-stream-prefix" = "medico-service"
         }
       }
       environment = [
@@ -40,19 +40,39 @@ resource "aws_ecs_task_definition" "ecs_admin_task_definition" {
         },
         {
           name  = "DB_NAME"
-          value = "restaurante_db"
+          value = "health"
         },
         {
-          name  = "ORDER_COLLECTION_NAME"
-          value = "order"
+          name  = "DOCTOR_COLLECTION_NAME"
+          value = "doctor"
         },
         {
           name  = "URL"
-          value = aws_apigatewayv2_api.main.api_endpoint
+          value = aws_apigatewayv2_api.apigtw_health.api_endpoint
         },
         {
           name = "MQ_CONN_STRING"
           value = "amqp://guest:guest@${aws_lb.rabbit-lb.dns_name}:5672"
+        },
+        {
+          name = "AWS_REGION"
+          value = var.region
+        },
+        {
+          name = "COGNITO_USER_POOL_ID"
+          value = aws_cognito_user_pool.medico_pool.id
+        },
+        {
+          name = "AWS_ACCESS_KEY_ID"
+          value = var.access_key
+        },
+        {
+          name = "AWS_SECRET_ACCESS_KEY"
+          value = var.secret_key
+        },
+        {
+          name = "TOKEN"
+          value = var.token
         }
       ]
     }
