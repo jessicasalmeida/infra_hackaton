@@ -55,24 +55,12 @@ resource "aws_ecs_task_definition" "ecs_schedule_task_definition" {
           value = "amqp://guest:guest@${aws_lb.rabbit-lb.dns_name}:5672"
         },
         {
-          name  = "AWS_ACCESS_KEY_ID"
-          value = var.access_key
+          name  = "GOOGLE_MAIL_APP_EMAIL"
+          value = "cpspos.sp.gov.br"
         },
         {
-          name  = "AWS_SECRET_ACCESS_KEY"
-          value = var.secret_key
-        },
-        {
-          name  = "AWS_SESSION_TOKEN"
-          value = var.token
-        },
-        {
-          name  = "AWS_REGION"
-          value = var.region
-        },
-        {
-          name  = "SNS_ARN"
-          value = aws_sns_topic.send_schedule_notification.arn
+          name  = "GOOGLE_MAIL_APP_PASSWORD"
+          value = "GRbdp0t79c0JA41U"
         }
       ]
     }

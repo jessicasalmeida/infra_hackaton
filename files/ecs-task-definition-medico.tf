@@ -53,6 +53,26 @@ resource "aws_ecs_task_definition" "ecs_medico_task_definition" {
         {
           name = "MQ_CONN_STRING"
           value = "amqp://guest:guest@${aws_lb.rabbit-lb.dns_name}:5672"
+        },
+        {
+          name = "AWS_REGION"
+          value = var.region
+        },
+        {
+          name = "COGNITO_USER_POOL_ID"
+          value = aws_cognito_user_pool.medico_pool.id
+        },
+        {
+          name = "AWS_ACCESS_KEY_ID"
+          value = var.access_key
+        },
+        {
+          name = "AWS_SECRET_ACCESS_KEY"
+          value = var.secret_key
+        },
+        {
+          name = "TOKEN"
+          value = var.token
         }
       ]
     }
