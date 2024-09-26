@@ -12,6 +12,13 @@ resource "aws_security_group" "load-balancer-schedule-sg" {
   }
 
   ingress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.paciente_sg.id]
+  }
+
+  ingress {
     from_port   = 0
     to_port     = 65535
     protocol    = "tcp"

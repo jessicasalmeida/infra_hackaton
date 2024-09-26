@@ -73,6 +73,10 @@ resource "aws_ecs_task_definition" "ecs_paciente_task_definition" {
         {
           name = "TOKEN"
           value = var.token
+        },
+        {
+          name = "SCHEDULE_SERVER"
+          value = "http://${aws_lb.schedule-lb.dns_name}"
         }
       ]
     }
